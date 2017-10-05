@@ -80,6 +80,14 @@
 
 		callback = callback || function () {};
 
+		// Generate an ID
+	    var newId = ""; 
+	    var charset = "0123456789";
+
+        for (var i = 0; i < 12; i++) {
+     		newId += charset.charAt(Math.floor(Math.random() * charset.length));
+		}
+
 		// If an ID was actually given, find the item and update each property
 		if (id) {
 			for (var i = 0; i < todos.length; i++) {
@@ -94,8 +102,10 @@
 			localStorage[this._dbName] = JSON.stringify(data);
 			callback.call(this, todos);
 		} else {
-			// Generate an ID
-			updateData.id = new Date().getTime();
+
+    		// Assign an ID
+			updateData.id = parseInt(newId);
+    
 
 			todos.push(updateData);
 			localStorage[this._dbName] = JSON.stringify(data);
@@ -112,11 +122,17 @@
 	Store.prototype.remove = function (id, callback) {
 		var data = JSON.parse(localStorage[this._dbName]);
 		var todos = data.todos;
-
+		var todoId;
+		
 		for (var i = 0; i < todos.length; i++) {
 			if (todos[i].id == id) {
+				todoId = todos[i].id;
+			}
+		}
+
+		for (var i = 0; i < todos.length; i++) {
+			if (todos[i].id == todoId) {
 				todos.splice(i, 1);
-				break;
 			}
 		}
 
