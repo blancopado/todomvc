@@ -84,7 +84,7 @@
 	    var newId = ""; 
 	    var charset = "0123456789";
 
-        for (var i = 0; i < 12; i++) {
+        for (var i = 0; i < 6; i++) {
      		newId += charset.charAt(Math.floor(Math.random() * charset.length));
 		}
 
